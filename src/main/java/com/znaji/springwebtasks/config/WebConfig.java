@@ -2,6 +2,7 @@ package com.znaji.springwebtasks.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -22,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp(webMvcProperties.getView().getPrefix(), webMvcProperties.getView().getSuffix());
+        registry.viewResolver(thymeleafViewResolver());
     }
 
     @Bean
@@ -42,4 +46,29 @@ public class WebConfig implements WebMvcConfigurer {
         registration.setLoadOnStartup(1);
         return registration;
     }
+
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver springResourceTemplateResolver = new SpringResourceTemplateResolver();
+        springResourceTemplateResolver.setPrefix("classpath:/templates/");
+        springResourceTemplateResolver.setSuffix(".html");
+        springResourceTemplateResolver.setTemplateMode("HTML");
+        springResourceTemplateResolver.setCharacterEncoding("UTF-8");
+        return springResourceTemplateResolver;
+    }
+
+    @Bean
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+        springTemplateEngine.setTemplateResolver(templateResolver());
+        return springTemplateEngine;
+    }
+
+    @Bean
+    public ThymeleafViewResolver thymeleafViewResolver() {
+        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+        thymeleafViewResolver.setTemplateEngine(templateEngine());
+        return thymeleafViewResolver;
+    }
+
 }
