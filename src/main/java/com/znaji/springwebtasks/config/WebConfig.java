@@ -34,6 +34,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.favorParameter(true);
+        configurer.parameterName("mediaType");
         configurer.mediaType("pdf", MediaType.APPLICATION_PDF);
         configurer.mediaType("xls", MediaType.valueOf("application/vnd.ms-excel"));
     }

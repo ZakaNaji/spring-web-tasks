@@ -5,6 +5,7 @@ import com.znaji.springwebtasks.court.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class ReservationController {
     }
 
     @GetMapping("reservationSummary")
-    public String testList(Model model) {
+    public String testList(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, Model model) {
         model.addAttribute("reservations", reservationService.findByDate(LocalDate.of(2024, 5, 1)));
         return "reservationSummary";
     }
