@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservations</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Reservations</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Court Name</th>
+        <th>Date</th>
+        <th>Hour</th>
+        <th>Player</th>
+        <th>Sport Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${reservations}">
+        <td th:text="${reservation.courtName}">Court Name</td>
+        <td th:text="${reservation.date}">Date</td>
+        <td th:text="${reservation.hour}">Hour</td>
+        <td th:text="${reservation.player.name}">Player</td>
+        <td th:text="${reservation.sportType.name}">Sport Type</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

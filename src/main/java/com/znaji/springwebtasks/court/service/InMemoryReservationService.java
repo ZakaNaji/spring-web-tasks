@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,13 @@ public class InMemoryReservationService implements ReservationService
     public List<Reservation> query(String courtName) {
         return reservations.stream()
                 .filter(reservation -> StringUtils.startsWithIgnoreCase(reservation.getCourtName(), courtName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Reservation> findByDate(LocalDate summaryDate) {
+        return reservations.stream()
+                .filter( (r) -> Objects.equals(r.getDate(), summaryDate))
                 .collect(Collectors.toList());
     }
 }

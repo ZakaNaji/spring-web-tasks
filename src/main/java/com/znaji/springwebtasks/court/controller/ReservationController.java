@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -44,6 +46,12 @@ public class ReservationController {
             reservations = reservationService.query(courtName);
         }
         model.addAttribute("reservations", reservations);
+    }
+
+    @GetMapping("reservationSummary")
+    public String testList(Model model) {
+        model.addAttribute("reservations", reservationService.findByDate(LocalDate.of(2024, 5, 1)));
+        return "reservationSummary";
     }
 
 }
