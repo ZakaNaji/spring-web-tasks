@@ -3,6 +3,7 @@ package com.znaji.springwebtasks.court.service;
 import com.znaji.springwebtasks.court.demain.Player;
 import com.znaji.springwebtasks.court.demain.Reservation;
 import com.znaji.springwebtasks.court.demain.SportType;
+import com.znaji.springwebtasks.court.exception.ReservationNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -41,4 +42,16 @@ public class InMemoryReservationService implements ReservationService
                 .filter( (r) -> Objects.equals(r.getDate(), summaryDate))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Reservation findReservation(String courtName, LocalDate date, int hour) {
+        return reservations.stream()
+                .filter( (r) -> Objects.equals(r.getCourtName(), courtName))
+                .filter( (r) -> Objects.equals(r.getDate(), date))
+                .filter( (r) -> r.getHour() == hour)
+                .findFirst()
+                .orElseThrow(() -> new ReservationNotFoundException(courtName, date, hour));
+    }
+
+
 }

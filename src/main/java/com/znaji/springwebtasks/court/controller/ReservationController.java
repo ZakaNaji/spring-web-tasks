@@ -55,4 +55,15 @@ public class ReservationController {
         return "reservationSummary";
     }
 
+    @GetMapping("findOneReservation")
+    public String findOne(@RequestParam("courtName") String courtName,
+                          @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+                          @RequestParam("hour") int hour,
+                          Model model) {
+
+        var reservation = reservationService.findReservation(courtName, date, hour);
+        model.addAttribute("reservation", reservation);
+
+        return "reservationDetail";
+    }
 }

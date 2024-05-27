@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReservationService {
     List<Reservation> query(String courtName);
     List<Reservation> findByDate(LocalDate date);
+
+    Reservation findReservation(String courtName, LocalDate date, int hour);
 }

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Reservation Not Available</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+Your reservation for <span th:text="${exception.courtName}">courtName</span> is not available on <span th:text="${exception.date}">date</span> at <span th:text="${exception.hour}">hour</span>:00.
+</body>
+</html>
