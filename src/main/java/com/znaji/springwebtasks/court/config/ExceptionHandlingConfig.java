@@ -13,7 +13,7 @@ import java.util.Properties;
 @Configuration
 public class ExceptionHandlingConfig implements WebMvcConfigurer {
 
-    @Override
+    /*@Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(handlerExceptionResolver());
     }
@@ -27,5 +27,5 @@ public class ExceptionHandlingConfig implements WebMvcConfigurer {
         resolver.setDefaultErrorView("error.html");
         resolver.setExceptionMappings(mapping);
         return resolver;
-    }
+    }*/
 }
