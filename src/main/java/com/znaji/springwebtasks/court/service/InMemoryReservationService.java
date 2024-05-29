@@ -75,5 +75,14 @@ public class InMemoryReservationService implements ReservationService
         return List.of(TENNIS, SOCCER);
     }
 
+    @Override
+    public SportType getSportById(int i) {
+        return switch (i) {
+            case 1 -> TENNIS;
+            case 2 -> SOCCER;
+            default -> null;
+        };
+    }
+
 
 }

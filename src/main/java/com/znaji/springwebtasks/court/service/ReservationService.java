@@ -15,4 +15,6 @@ public interface ReservationService {
     void make(Reservation reservation);
 
     List<SportType> getAllSportTypes();
+
+    SportType getSportById(int i);
 }
