@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservation Form</title>
+    <style>
+        .error {
+            color: #ff0000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/reservationForm}" th:object="${reservation}" method="post">
+    <div th:if="${#fields.hasErrors('*')}" class="error">
+        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+    </div>
+    <table>
+        <tr>
+            <td>Court Name</td>
+            <td><input type="text" th:field="*{courtName}" /></td>
+            <td class="error" th:errors="*{courtName}"></td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td><input type="date" th:field="*{date}" /></td>
+            <td class="error" th:errors="*{date}"></td>
+        </tr>
+        <tr>
+            <td>Hour</td>
+            <td><input type="number" th:field="*{hour}" /></td>
+            <td class="error" th:errors="*{hour}"></td>
+        </tr>
+        <tr>
+            <td>Player Name</td>
+            <td><input type="text" th:field="*{player.name}" /></td>
+            <td class="error" th:errors="*{player.name}"></td>
+        </tr>
+        <tr>
+            <td>Player Email</td>
+            <td><input type="email" th:field="*{player.phone}" /></td>
+            <td class="error" th:errors="*{player.phone}"></td>
+        </tr>
+        <tr>
+            <td>Sport Type</td>
+            <td>
+                <select th:field="*{sportType}">
+                    <option th:each="sportType : ${sportTypes}" th:value="${sportType.id}" th:text="${sportType.name}"></option>
+                </select>
+            </td>
+            <td class="error" th:errors="*{sportType}"></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.znaji.springwebtasks.court.service;
 import com.znaji.springwebtasks.court.demain.Player;
 import com.znaji.springwebtasks.court.demain.Reservation;
 import com.znaji.springwebtasks.court.demain.SportType;
+import com.znaji.springwebtasks.court.exception.ReservationNotAvailableException;
 import com.znaji.springwebtasks.court.exception.ReservationNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,6 +20,8 @@ public class InMemoryReservationService implements ReservationService
 {
 
     private final List<Reservation> reservations = Collections.synchronizedList(new ArrayList<>());
+    private static final SportType TENNIS = new SportType(1, "Tennis");
+    private static final SportType SOCCER = new SportType(2, "Soccer");
 
     public InMemoryReservationService() {
         var roger = Player.builder().name("Roger").build();
@@ -51,6 +54,25 @@ public class InMemoryReservationService implements ReservationService
                 .filter( (r) -> r.getHour() == hour)
                 .findFirst()
                 .orElseThrow(() -> new ReservationNotFoundException(courtName, date, hour));
+    }
+
+    @Override
+    public void make(Reservation reservation) {
+        var count = reservations.stream()
+                .filter( (r) -> Objects.equals(r.getCourtName(), reservation.getCourtName()))
+                .filter( (r) -> Objects.equals(r.getDate(), reservation.getDate()))
+                .filter( (r) -> r.getHour() == reservation.getHour())
+                .count();
+        if (count > 0) {
+            throw new ReservationNotAvailableException(reservation.getCourtName(), reservation.getDate(), reservation.getHour());
+        } else {
+            reservations.add(reservation);
+        }
+    }
+
+    @Override
+    public List<SportType> getAllSportTypes() {
+        return List.of(TENNIS, SOCCER);
     }
 
 

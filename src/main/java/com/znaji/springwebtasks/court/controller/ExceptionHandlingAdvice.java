@@ -15,7 +15,8 @@ public class ExceptionHandlingAdvice {
     }
 
     @ExceptionHandler
-    public String generalException(Exception ex) {
+    public String generalException(Exception ex, Model model) {
+        model.addAttribute("exception", ex);
         return "error";
     }
 }

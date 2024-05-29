@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservation Success</title>
+</head>
+<body>
+<h1>Reservation Successful!</h1>
+<p>Your reservation has been successfully made. Here are the details:</p>
+<table>
+    <tr>
+        <td>Court Name:</td>
+        <td th:text="${reservation.courtName}"></td>
+    </tr>
+    <tr>
+        <td>Date:</td>
+        <td th:text="${reservation.date}"></td>
+    </tr>
+    <tr>
+        <td>Hour:</td>
+        <td th:text="${reservation.hour}"></td>
+    </tr>
+</table>
+<a href="/reservationForm">Make another reservation</a>
+</body>
+</html>

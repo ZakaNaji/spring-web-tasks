@@ -11,8 +11,9 @@ public class ExtensionInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
         var param = request.getParameter("mediaType");
-        var date = request.getParameter("date").replace("-", "_");
-        if (param != null) {
+        var date = request.getParameter("date");
+        if (param != null && date != null) {
+            date = date.replace("-", "_");
             var filename = "reservationSummary" + date + "." + param;
             response.setHeader("Content-Disposition", "attachment; filename=" + filename);
         }

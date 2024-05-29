@@ -13,4 +13,8 @@ public class Player {
 
     private String name;
     private String phone;
+
+    public Player(String username) {
+        this.name = username;
+    }
 }
