@@ -29,8 +29,6 @@ public class RestMembersController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMember(@PathVariable("id") int id, Model model) {
-        return memberService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.of(memberService.findById(id));
     }
 }
