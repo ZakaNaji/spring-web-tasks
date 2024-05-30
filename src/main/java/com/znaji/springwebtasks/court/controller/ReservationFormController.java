@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.List;
 
@@ -39,10 +40,14 @@ public class ReservationFormController {
     }
 
     @PostMapping
-    public String submitForm(@ModelAttribute("reservation") @Validated Reservation reservation, BindingResult result, Model model) {
+    public String submitForm(@ModelAttribute("reservation") @Validated Reservation reservation,
+                             BindingResult result,
+                             SessionStatus sessionStatus,
+                             Model model) {
         if (result.hasErrors()) {
             return "reservationForm";
         }
+        sessionStatus.setComplete();
         reservationService.make(reservation);
         return "redirect:/reservationForm/reservationSuccess";
     }
