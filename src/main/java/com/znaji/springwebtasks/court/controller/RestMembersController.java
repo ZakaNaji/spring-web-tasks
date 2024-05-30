@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/members")
@@ -16,10 +17,10 @@ public class RestMembersController {
     private final MemberService memberService;
 
     @GetMapping
-    public String getRestMembers(Model model) {
+    @ResponseBody
+    public Members getRestMembers(Model model) {
         var members = new Members();
         members.addMembers(memberService.findAll());
-        model.addAttribute("members", members);
-        return "restMembers";
+        return members;
     }
 }
