@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.enableContentNegotiation();
+        //registry.enableContentNegotiation();
         registry.viewResolver(thymeleafViewResolver());
     }
 
@@ -79,6 +79,7 @@ public class WebConfig implements WebMvcConfigurer {
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine());
+        thymeleafViewResolver.setOrder(2);
         return thymeleafViewResolver;
     }
 
