@@ -9,4 +9,6 @@ public interface MemberService {
     Iterable<Member> findAll();
 
     Optional<Member> findById(int id);
+
+    Member save(Member member);
 }

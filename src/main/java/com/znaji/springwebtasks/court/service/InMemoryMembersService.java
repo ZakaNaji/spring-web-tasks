@@ -29,4 +29,10 @@ public class InMemoryMembersService implements MemberService{
             return Optional.empty();
         }
     }
+
+    @Override
+    public Member save(Member member) {
+        members.add(member);
+        return member;
+    }
 }

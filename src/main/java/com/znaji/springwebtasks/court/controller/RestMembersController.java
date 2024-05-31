@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/members")
@@ -30,5 +27,10 @@ public class RestMembersController {
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMember(@PathVariable("id") int id, Model model) {
         return ResponseEntity.of(memberService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Member> addMember(@RequestBody Member member) {
+        return ResponseEntity.ok(memberService.save(member));
     }
 }
